@@ -1,0 +1,44 @@
+{
+  "IMAGE": {
+    "SOURCE": "/var/lib/one/opennebula/var//datastores/101/16aaf839a0ec5942819fb8e719c600d4",
+    "UNAME": "oneadmin",
+    "DATASTORE_ID": "101",
+    "RUNNING_VMS": "0",
+    "SIZE": "1",
+    "ID": "20",
+    "REGTIME": "1403591751",
+    "VMS": {
+    },
+    "DATASTORE": "datastore",
+    "CLONING_OPS": "0",
+    "TEMPLATE": {
+      "DEV_PREFIX": "hd",
+      "DESCRIPTION": "testaaabb"
+    },
+    "TYPE": "0",
+    "GID": "0",
+    "PERSISTENT": "0",
+    "FSTYPE": {
+    },
+    "CLONES": {
+    },
+    "PERMISSIONS": {
+      "OTHER_A": "0",
+      "OTHER_M": "0",
+      "OTHER_U": "0",
+      "OWNER_A": "0",
+      "OWNER_M": "1",
+      "OWNER_U": "1",
+      "GROUP_A": "0",
+      "GROUP_M": "0",
+      "GROUP_U": "0"
+    },
+    "NAME": "testaaa",
+    "STATE": "1",
+    "PATH": "/var/tmp/sunstone-upload20140624-18415-j7qemk-0",
+    "DISK_TYPE": "0",
+    "GNAME": "oneadmin",
+    "UID": "0",
+    "CLONING_ID": "-1"
+  }
+}
