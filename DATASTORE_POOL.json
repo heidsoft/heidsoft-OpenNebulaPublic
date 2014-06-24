@@ -1,0 +1,262 @@
+{
+    "DATASTORE_POOL": {
+        "DATASTORE": [
+            {
+                "IMAGES": { }, 
+                "UNAME": "oneadmin", 
+                "FREE_MB": "0", 
+                "TOTAL_MB": "0", 
+                "ID": "0", 
+                "USED_MB": "0", 
+                "CLUSTER_ID": "100", 
+                "TEMPLATE": {
+                    "SHARED": "YES", 
+                    "TYPE": "SYSTEM_DS", 
+                    "BASE_PATH": "/var/lib/one/opennebula/var//datastores/", 
+                    "TM_MAD": "shared"
+                }, 
+                "TYPE": "1", 
+                "BASE_PATH": "/var/lib/one/opennebula/var//datastores/0", 
+                "GID": "0", 
+                "CLUSTER": "dsada", 
+                "TM_MAD": "shared", 
+                "DS_MAD": "-", 
+                "PERMISSIONS": {
+                    "OTHER_A": "0", 
+                    "OTHER_M": "0", 
+                    "OTHER_U": "0", 
+                    "OWNER_A": "0", 
+                    "OWNER_M": "1", 
+                    "OWNER_U": "1", 
+                    "GROUP_A": "0", 
+                    "GROUP_M": "0", 
+                    "GROUP_U": "1"
+                }, 
+                "NAME": "system", 
+                "DISK_TYPE": "0", 
+                "GNAME": "oneadmin", 
+                "UID": "0"
+            }, 
+            {
+                "IMAGES": {
+                    "ID": [
+                        "4", 
+                        "5", 
+                        "6", 
+                        "7", 
+                        "9"
+                    ]
+                }, 
+                "UNAME": "oneadmin", 
+                "FREE_MB": "0", 
+                "TOTAL_MB": "0", 
+                "ID": "1", 
+                "USED_MB": "0", 
+                "CLUSTER_ID": "100", 
+                "TEMPLATE": {
+                    "TYPE": "IMAGE_DS", 
+                    "LN_TARGET": "NONE", 
+                    "BASE_PATH": "/var/lib/one/opennebula/var//datastores/", 
+                    "TM_MAD": "shared", 
+                    "DS_MAD": "vmfs", 
+                    "CLONE_TARGET": "SYSTEM", 
+                    "DISK_TYPE": "FILE"
+                }, 
+                "TYPE": "0", 
+                "BASE_PATH": "/var/lib/one/opennebula/var//datastores/1", 
+                "GID": "0", 
+                "CLUSTER": "dsada", 
+                "TM_MAD": "shared", 
+                "DS_MAD": "vmfs", 
+                "PERMISSIONS": {
+                    "OTHER_A": "0", 
+                    "OTHER_M": "0", 
+                    "OTHER_U": "0", 
+                    "OWNER_A": "0", 
+                    "OWNER_M": "1", 
+                    "OWNER_U": "1", 
+                    "GROUP_A": "0", 
+                    "GROUP_M": "0", 
+                    "GROUP_U": "1"
+                }, 
+                "NAME": "default", 
+                "DISK_TYPE": "0", 
+                "GNAME": "oneadmin", 
+                "UID": "0"
+            }, 
+            {
+                "IMAGES": {
+                    "ID": [
+                        "11", 
+                        "12"
+                    ]
+                }, 
+                "UNAME": "oneadmin", 
+                "FREE_MB": "39741", 
+                "TOTAL_MB": "47192", 
+                "ID": "101", 
+                "USED_MB": "1962", 
+                "CLUSTER_ID": "-1", 
+                "TEMPLATE": {
+                    "SAFE_DIRS": "/mnt", 
+                    "TYPE": "IMAGE_DS", 
+                    "LN_TARGET": "NONE", 
+                    "BASE_PATH": "/var/lib/one/opennebula/var//datastores/", 
+                    "TM_MAD": "shared", 
+                    "DS_MAD": "fs", 
+                    "CLONE_TARGET": "SYSTEM", 
+                    "DISK_TYPE": "FILE"
+                }, 
+                "TYPE": "0", 
+                "BASE_PATH": "/var/lib/one/opennebula/var//datastores/101", 
+                "GID": "0", 
+                "CLUSTER": { }, 
+                "TM_MAD": "shared", 
+                "DS_MAD": "fs", 
+                "PERMISSIONS": {
+                    "OTHER_A": "0", 
+                    "OTHER_M": "0", 
+                    "OTHER_U": "0", 
+                    "OWNER_A": "0", 
+                    "OWNER_M": "1", 
+                    "OWNER_U": "1", 
+                    "GROUP_A": "0", 
+                    "GROUP_M": "0", 
+                    "GROUP_U": "1"
+                }, 
+                "NAME": "datastore", 
+                "DISK_TYPE": "0", 
+                "GNAME": "oneadmin", 
+                "UID": "0"
+            }, 
+            {
+                "IMAGES": {
+                    "ID": [
+                        "13", 
+                        "14"
+                    ]
+                }, 
+                "UNAME": "oneadmin", 
+                "FREE_MB": "39741", 
+                "TOTAL_MB": "47192", 
+                "ID": "110", 
+                "USED_MB": "687", 
+                "CLUSTER_ID": "-1", 
+                "TEMPLATE": {
+                    "SAFE_DIRS": "/data", 
+                    "TYPE": "IMAGE_DS", 
+                    "LN_TARGET": "NONE", 
+                    "BASE_PATH": "/var/lib/one/opennebula/var//datastores/", 
+                    "TM_MAD": "shared", 
+                    "DS_MAD": "fs", 
+                    "CLONE_TARGET": "SYSTEM", 
+                    "DISK_TYPE": "FILE"
+                }, 
+                "TYPE": "0", 
+                "BASE_PATH": "/var/lib/one/opennebula/var//datastores/110", 
+                "GID": "0", 
+                "CLUSTER": { }, 
+                "TM_MAD": "shared", 
+                "DS_MAD": "fs", 
+                "PERMISSIONS": {
+                    "OTHER_A": "0", 
+                    "OTHER_M": "0", 
+                    "OTHER_U": "0", 
+                    "OWNER_A": "0", 
+                    "OWNER_M": "1", 
+                    "OWNER_U": "1", 
+                    "GROUP_A": "0", 
+                    "GROUP_M": "0", 
+                    "GROUP_U": "1"
+                }, 
+                "NAME": "data", 
+                "DISK_TYPE": "0", 
+                "GNAME": "oneadmin", 
+                "UID": "0"
+            }, 
+            {
+                "IMAGES": { }, 
+                "UNAME": "oneadmin", 
+                "FREE_MB": "39741", 
+                "TOTAL_MB": "47192", 
+                "ID": "113", 
+                "USED_MB": "1", 
+                "CLUSTER_ID": "-1", 
+                "TEMPLATE": {
+                    "TYPE": "IMAGE_DS", 
+                    "LN_TARGET": "NONE", 
+                    "BASE_PATH": "/var/lib/one/opennebula/var//datastores/", 
+                    "TM_MAD": "shared", 
+                    "DS_MAD": "fs", 
+                    "CLONE_TARGET": "SYSTEM", 
+                    "DISK_TYPE": "FILE"
+                }, 
+                "TYPE": "0", 
+                "BASE_PATH": "/var/lib/one/opennebula/var//datastores/113", 
+                "GID": "0", 
+                "CLUSTER": { }, 
+                "TM_MAD": "shared", 
+                "DS_MAD": "fs", 
+                "PERMISSIONS": {
+                    "OTHER_A": "0", 
+                    "OTHER_M": "0", 
+                    "OTHER_U": "0", 
+                    "OWNER_A": "0", 
+                    "OWNER_M": "1", 
+                    "OWNER_U": "1", 
+                    "GROUP_A": "0", 
+                    "GROUP_M": "0", 
+                    "GROUP_U": "1"
+                }, 
+                "NAME": "image", 
+                "DISK_TYPE": "0", 
+                "GNAME": "oneadmin", 
+                "UID": "0"
+            }, 
+            {
+                "IMAGES": {
+                    "ID": [
+                        "18", 
+                        "19"
+                    ]
+                }, 
+                "UNAME": "oneadmin", 
+                "FREE_MB": "130006", 
+                "TOTAL_MB": "135759", 
+                "ID": "114", 
+                "USED_MB": "687", 
+                "CLUSTER_ID": "-1", 
+                "TEMPLATE": {
+                    "TYPE": "IMAGE_DS", 
+                    "LN_TARGET": "NONE", 
+                    "BASE_PATH": "/var/lib/one/opennebula/var//datastores/", 
+                    "TM_MAD": "shared", 
+                    "DS_MAD": "fs", 
+                    "CLONE_TARGET": "SYSTEM", 
+                    "DISK_TYPE": "FILE"
+                }, 
+                "TYPE": "0", 
+                "BASE_PATH": "/var/lib/one/opennebula/var//datastores/114", 
+                "GID": "0", 
+                "CLUSTER": { }, 
+                "TM_MAD": "shared", 
+                "DS_MAD": "fs", 
+                "PERMISSIONS": {
+                    "OTHER_A": "0", 
+                    "OTHER_M": "0", 
+                    "OTHER_U": "0", 
+                    "OWNER_A": "0", 
+                    "OWNER_M": "1", 
+                    "OWNER_U": "1", 
+                    "GROUP_A": "0", 
+                    "GROUP_M": "0", 
+                    "GROUP_U": "1"
+                }, 
+                "NAME": "nfstest", 
+                "DISK_TYPE": "0", 
+                "GNAME": "oneadmin", 
+                "UID": "0"
+            }
+        ]
+    }
+}
