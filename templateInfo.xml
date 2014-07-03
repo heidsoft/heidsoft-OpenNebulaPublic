@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<VMTEMPLATE>
+  <ID>13</ID>
+  <UID>0</UID>
+  <GID>0</GID>
+  <UNAME>oneadmin</UNAME>
+  <GNAME>oneadmin</GNAME>
+  <NAME>xenforcdrom</NAME>
+  <PERMISSIONS>
+    <OWNER_U>1</OWNER_U>
+    <OWNER_M>1</OWNER_M>
+    <OWNER_A>0</OWNER_A>
+    <GROUP_U>0</GROUP_U>
+    <GROUP_M>0</GROUP_M>
+    <GROUP_A>0</GROUP_A>
+    <OTHER_U>0</OTHER_U>
+    <OTHER_M>0</OTHER_M>
+    <OTHER_A>0</OTHER_A>
+  </PERMISSIONS>
+  <REGTIME>1404287260</REGTIME>
+  <TEMPLATE>
+    <CPU><![CDATA[1]]></CPU>
+    <DISK>
+      <CACHE><![CDATA[default]]></CACHE>
+      <DRIVER><![CDATA[file]]></DRIVER>
+      <IMAGE><![CDATA[testiso]]></IMAGE>
+      <IMAGE_UNAME><![CDATA[oneadmin]]></IMAGE_UNAME>
+      <READONLY><![CDATA[yes]]></READONLY>
+    </DISK>
+    <DISK>
+      <CACHE><![CDATA[default]]></CACHE>
+      <DRIVER><![CDATA[file]]></DRIVER>
+      <IMAGE><![CDATA[test-ubuntu-data-xen]]></IMAGE>
+      <IMAGE_UNAME><![CDATA[oneadmin]]></IMAGE_UNAME>
+    </DISK>
+    <GRAPHICS>
+      <LISTEN><![CDATA[0.0.0.0]]></LISTEN>
+      <TYPE><![CDATA[VNC]]></TYPE>
+    </GRAPHICS>
+    <MEMORY><![CDATA[512]]></MEMORY>
+    <NIC>
+      <MODEL><![CDATA[virtio]]></MODEL>
+      <NETWORK><![CDATA[testvn]]></NETWORK>
+      <NETWORK_UNAME><![CDATA[oneadmin]]></NETWORK_UNAME>
+    </NIC>
+    <OS>
+      <ARCH><![CDATA[x86_64]]></ARCH>
+      <BOOT><![CDATA[cdrom]]></BOOT>
+    </OS>
+  </TEMPLATE>
+</VMTEMPLATE>
