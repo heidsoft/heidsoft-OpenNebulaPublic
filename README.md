@@ -73,24 +73,24 @@ OpenNebula 深入分析
      http://www.litech.org/radvd/
 
 #如何让 OpenNebula 虚拟机自动获得 IP 等网络配置信息？
->制作完 OpenNebula 的 Ubuntu 虚拟机镜像后需要对镜像配置一下以适应所在的网络运行环境，因为我们的 OpenNebula 虚拟机使用的是网桥的方式，所以虚拟机启动后会使用现有网络，并企图从 DHCP 服务器那里获得 IP 地址，如果 DHCP 服务器不做绑定的话这样随便获得的 IP 地址并不符合我们在 small_network.net (onevnet create small_network.net) 定义的要求，我们希望虚拟机启动后能从 small_network.net 这个网络配置文件中获得相应的 IP 地址。OpenNebula 里面的 Contextualizing 部分就是用来对付这种情况的，不过 VPSee 在这里介绍一个更简单的偷懒办法：直接用一个启动脚本来搞定。OpenNebula 已经为我们准备了类似的脚本，只需要根据自己的要求调整一下就可以了，这里介绍 for ubuntu 和 for centos 两个版本的脚本，还有 for debian 和 opensuse 的。
+    制作完 OpenNebula 的 Ubuntu 虚拟机镜像后需要对镜像配置一下以适应所在的网络运行环境，因为我们的 OpenNebula 虚拟机使用的是网桥的方式，所以虚拟机启动后会使用现有网络，并企图从 DHCP 服务器那里获得 IP 地址，如果 DHCP 服务器不做绑定的话这样随便获得的 IP 地址并不符合我们在 small_network.net (onevnet create small_network.net) 定义的要求，我们希望虚拟机启动后能从 small_network.net 这个网络配置文件中获得相应的 IP 地址。OpenNebula 里面的 Contextualizing 部分就是用来对付这种情况的，不过 VPSee 在这里介绍一个更简单的偷懒办法：直接用一个启动脚本来搞定。OpenNebula 已经为我们准备了类似的脚本，只需要根据自己的要求调整一下就可以了，这里介绍 for ubuntu 和 for centos 两个版本的脚本，还有 for debian 和 opensuse 的。
 
 >Ubuntu 虚拟机
 下载 for ubuntu 的 context 文件后放在合适的地方，这个脚本有点问题需要在下载的 vmcontext.sh 文件最后加上重启网络（/etc/init.d/networking restart）这行：
 
-		$ wget http://dev.opennebula.org/attachments/download/378/vmcontext.sh 
-		$ sudo -i
-		# mv vmcontext.sh /etc/init.d/vmcontext
-		# chmod +x /etc/init.d/vmcontext
-		# ln -sf /etc/init.d/vmcontext /etc/rc2.d/S01vmcontext
-		# echo "/etc/init.d/networking restart" >> /etc/init.d/vmcontext
-		CentOS 虚拟机
-		下载 for centos 的 context 文件后放在合适的地方：
-		# wget http://dev.opennebula.org/projects/opennebula/repository/revisions/master/raw/share/scripts/centos-5/net-vmcontext/vmcontext
-		# mv vmcontext.sh /etc/init.d/vmcontext
-		# chmod +x /etc/init.d/vmcontext
-		# chkconfig --add vmcontext
-		# reboot
+    $ wget http://dev.opennebula.org/attachments/download/378/vmcontext.sh 
+    $ sudo -i
+    # mv vmcontext.sh /etc/init.d/vmcontext
+    # chmod +x /etc/init.d/vmcontext
+    # ln -sf /etc/init.d/vmcontext /etc/rc2.d/S01vmcontext
+    # echo "/etc/init.d/networking restart" >> /etc/init.d/vmcontext
+    CentOS 虚拟机
+    下载 for centos 的 context 文件后放在合适的地方：
+    # wget http://dev.opennebula.org/projects/opennebula/repository/revisions/master/raw/share/scripts/centos-5/net-vmcontext/vmcontext
+    # mv vmcontext.sh /etc/init.d/vmcontext
+    # chmod +x /etc/init.d/vmcontext
+    # chkconfig --add vmcontext
+    # reboot
 		还记得上次说的给 OpenNebula 虚拟机增加 swap 分区的问题吗，直接把激活 swap 的部分放在 vmcontext 里就不必每次创建虚拟机后再增加 swap 的繁琐工作了。
 
 
@@ -176,30 +176,29 @@ OpenNebula 深入分析
 
 
 
-#虚拟机如果创建失败，那么他所利用的镜像也将error,出现error后，得重新将镜像enable才能
-将Image 的状态改为ready,然后才能再次使用。
+##虚拟机如果创建失败，那么他所利用的镜像也将error,出现error后，得重新将镜像enable才能将Image 的状态改为ready,然后才能再次使用。
 
 
-#这个错误未找到原因
-==================================================================================
-Tue Aug 12 05:55:46 2014 [DiM][I]: New VM state is ACTIVE.
-Tue Aug 12 05:55:46 2014 [LCM][I]: New VM state is PROLOG.
-Tue Aug 12 05:55:46 2014 [VM][I]: Virtual Machine has no context
-Tue Aug 12 05:55:46 2014 [LCM][I]: New VM state is BOOT
-Tue Aug 12 05:55:46 2014 [VMM][I]: Generating deployment file: /var/lib/one/opennebula/var/vms/238/deployment.0
-Tue Aug 12 05:55:46 2014 [VMM][I]: ExitCode: 0
-Tue Aug 12 05:55:46 2014 [VMM][I]: Successfully execute network driver operation: pre.
-Tue Aug 12 05:55:47 2014 [VMM][I]: Command execution fail: cat << EOT | /var/tmp/one/vmm/xen4/deploy '/var/lib/one/opennebula/var//datastores/0/238/deployment.0' '192.168.70.70' 238 192.168.70.70
-Tue Aug 12 05:55:47 2014 [VMM][I]: Error: Unable to find number for device (xvd)
-Tue Aug 12 05:55:47 2014 [VMM][E]: Unable
-Tue Aug 12 05:55:47 2014 [VMM][I]: ExitCode: 1
-Tue Aug 12 05:55:47 2014 [VMM][I]: Failed to execute virtualization driver operation: deploy.
-Tue Aug 12 05:55:47 2014 [VMM][E]: Error deploying virtual machine: Unable
-Tue Aug 12 05:55:47 2014 [DiM][I]: New VM state is FAILED
-==================================================================================
+###这个错误未找到原因
 
-#调度参数格式
-ID="30"
+    Tue Aug 12 05:55:46 2014 [DiM][I]: New VM state is ACTIVE.
+    Tue Aug 12 05:55:46 2014 [LCM][I]: New VM state is PROLOG.
+    Tue Aug 12 05:55:46 2014 [VM][I]: Virtual Machine has no context
+    Tue Aug 12 05:55:46 2014 [LCM][I]: New VM state is BOOT
+    Tue Aug 12 05:55:46 2014 [VMM][I]: Generating deployment file: /var/lib/one/opennebula/var/vms/238/deployment.0
+    Tue Aug 12 05:55:46 2014 [VMM][I]: ExitCode: 0
+    Tue Aug 12 05:55:46 2014 [VMM][I]: Successfully execute network driver operation: pre.
+    Tue Aug 12 05:55:47 2014 [VMM][I]: Command execution fail: cat << EOT | /var/tmp/one/vmm/xen4/deploy '/var/lib/one/opennebula/var//datastores/0/238/deployment.0' '192.168.70.70' 238 192.168.70.70
+    Tue Aug 12 05:55:47 2014 [VMM][I]: Error: Unable to find number for device (xvd)
+    Tue Aug 12 05:55:47 2014 [VMM][E]: Unable
+    Tue Aug 12 05:55:47 2014 [VMM][I]: ExitCode: 1
+    Tue Aug 12 05:55:47 2014 [VMM][I]: Failed to execute virtualization driver operation: deploy.
+    Tue Aug 12 05:55:47 2014 [VMM][E]: Error deploying virtual machine: Unable
+    Tue Aug 12 05:55:47 2014 [DiM][I]: New VM state is FAILED
+
+
+#主机调度参数格式
+    ID="30"
 
 #在sunstore中必须保证OS是第一块盘
 - 发送xml数据中os盘必须是位于最后一块盘，这样才能对应界面是第一块系统盘
@@ -208,11 +207,10 @@ ID="30"
 中，那么将出现，如下错误。
 
 #虚拟机一直处于Pengding状态的调度日志。
-=======================================================================================
-Tue Aug 12 05:37:46 2014 [SCHED][D]: VM 234: Host 0 filtered out. It does not fulfill SCHED_REQUIREMENTS.
-Tue Aug 12 05:37:46 2014 [SCHED][D]: VM 234: Host 47 filtered out. It does not fulfill SCHED_REQUIREMENTS.
-Tue Aug 12 05:37:46 2014 [SCHED][I]: Scheduling Results:
-Virtual Machine: 234
+    Tue Aug 12 05:37:46 2014 [SCHED][D]: VM 234: Host 0 filtered out. It does not fulfill SCHED_REQUIREMENTS.
+    Tue Aug 12 05:37:46 2014 [SCHED][D]: VM 234: Host 47 filtered out. It does not fulfill SCHED_REQUIREMENTS.
+    Tue Aug 12 05:37:46 2014 [SCHED][I]: Scheduling Results:
+    Virtual Machine: 234
 
 	PRI	ID - HOSTS
 	------------------------
@@ -225,5 +223,4 @@ Virtual Machine: 234
 	1	0
 	0	120
 	表示找到三个存储，分布式127,0,120
-Tue Aug 12 05:37:46 2014 [SCHED][I]: VM 234: No suitable System DS found for Host: 30. Filtering out host.
-========================================================================================
+    Tue Aug 12 05:37:46 2014 [SCHED][I]: VM 234: No suitable System DS found for Host: 30. Filtering out host.
