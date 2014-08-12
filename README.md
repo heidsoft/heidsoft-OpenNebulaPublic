@@ -172,3 +172,58 @@ OpenNebula 深入分析
 
 - 将原来安装了系统的Datablock 的镜像类型改为OS类型，并将持久化改为非持久化（以便持续对该OS使用，但是非持久化比持久化创建VM要慢很多）
 
+
+
+
+
+#虚拟机如果创建失败，那么他所利用的镜像也将error,出现error后，得重新将镜像enable才能
+将Image 的状态改为ready,然后才能再次使用。
+
+
+#这个错误未找到原因
+==================================================================================
+Tue Aug 12 05:55:46 2014 [DiM][I]: New VM state is ACTIVE.
+Tue Aug 12 05:55:46 2014 [LCM][I]: New VM state is PROLOG.
+Tue Aug 12 05:55:46 2014 [VM][I]: Virtual Machine has no context
+Tue Aug 12 05:55:46 2014 [LCM][I]: New VM state is BOOT
+Tue Aug 12 05:55:46 2014 [VMM][I]: Generating deployment file: /var/lib/one/opennebula/var/vms/238/deployment.0
+Tue Aug 12 05:55:46 2014 [VMM][I]: ExitCode: 0
+Tue Aug 12 05:55:46 2014 [VMM][I]: Successfully execute network driver operation: pre.
+Tue Aug 12 05:55:47 2014 [VMM][I]: Command execution fail: cat << EOT | /var/tmp/one/vmm/xen4/deploy '/var/lib/one/opennebula/var//datastores/0/238/deployment.0' '192.168.70.70' 238 192.168.70.70
+Tue Aug 12 05:55:47 2014 [VMM][I]: Error: Unable to find number for device (xvd)
+Tue Aug 12 05:55:47 2014 [VMM][E]: Unable
+Tue Aug 12 05:55:47 2014 [VMM][I]: ExitCode: 1
+Tue Aug 12 05:55:47 2014 [VMM][I]: Failed to execute virtualization driver operation: deploy.
+Tue Aug 12 05:55:47 2014 [VMM][E]: Error deploying virtual machine: Unable
+Tue Aug 12 05:55:47 2014 [DiM][I]: New VM state is FAILED
+==================================================================================
+
+#调度参数格式
+ID="30"
+
+#在sunstore中必须保证OS是第一块盘
+- 发送xml数据中os盘必须是位于最后一块盘，这样才能对应界面是第一块系统盘
+- 目前模板支持创建多块盘，但必须盘是可用
+- 由于调度指定了某台物理，调度程序会帅选物理机上可用的存储，如果当前物理机是位于某个集群
+中，那么将出现，如下错误。
+
+#虚拟机一直处于Pengding状态的调度日志。
+=======================================================================================
+Tue Aug 12 05:37:46 2014 [SCHED][D]: VM 234: Host 0 filtered out. It does not fulfill SCHED_REQUIREMENTS.
+Tue Aug 12 05:37:46 2014 [SCHED][D]: VM 234: Host 47 filtered out. It does not fulfill SCHED_REQUIREMENTS.
+Tue Aug 12 05:37:46 2014 [SCHED][I]: Scheduling Results:
+Virtual Machine: 234
+
+	PRI	ID - HOSTS
+	------------------------
+	-1	30  
+	表示找个一个主机，主机的id是30
+
+	PRI	ID - DATASTORES
+	------------------------
+	1	127
+	1	0
+	0	120
+	表示找到三个存储，分布式127,0,120
+Tue Aug 12 05:37:46 2014 [SCHED][I]: VM 234: No suitable System DS found for Host: 30. Filtering out host.
+========================================================================================
