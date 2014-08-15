@@ -451,4 +451,86 @@ OpenNebula 深入分析
     http://192.168.70.77:9869/vm/239/startvnc
 
 
+##虚拟机
+
+###虚拟机内存
+    虚拟机模板标签的内存只是创建VM时分配的内存，而标签外的内存是只当前vm运行时的内存状态
+    具体数值来源和获取方法，暂未知晓
+
+###虚拟机附加一块磁盘
+    {
+        "action": {
+            "perform": "attachdisk",
+            "params": {
+                "disk_template": {
+                    "DISK": {
+                        "IMAGE": "blk-5g",
+                        "IMAGE_UNAME": "oneadmin",
+                        "DRIVER": "file",
+                        "DEV_PREFIX": "xvd",
+                        "SIZE": "10240",
+                        "TYPE": "fs"
+                    }
+                }
+            }
+        },
+        "csrftoken": "ce21aea2dee93e80664a1a8eb290ddb3"
+    }: 
+
+其磁盘模板格式是：
+    "disk_template": {
+          "DISK": {
+              "IMAGE": "blk-5g",
+              "IMAGE_UNAME": "oneadmin",
+              "DRIVER": "file",
+              "DEV_PREFIX": "xvd",
+              "SIZE": "10240",
+              "TYPE": "fs"
+          }
+    }
+
+
+###虚拟机卸载一快磁盘
+    {
+        "action": {
+            "perform": "detachdisk", 
+            "params": {
+                "disk_id": "2"
+            }
+        }, 
+        "csrftoken": "ce21aea2dee93e80664a1a8eb290ddb3"
+    }
+
+###虚拟机添加一张网卡
+    {
+        "action": {
+            "perform": "attachnic", 
+            "params": {
+                "nic_template": {
+                    "NIC": {
+                        "NETWORK": "public", 
+                        "NETWORK_UNAME": "oneadmin"
+                    }
+                }
+            }
+        }, 
+        "csrftoken": "510186022eb56ba1e1389dac7d5d24d8"
+    }
+
+###虚拟机卸载一张网卡
+    {
+        "action": {
+            "perform": "detachnic", 
+            "params": {
+                "nic_id": "1"
+            }
+        }, 
+        "csrftoken": "510186022eb56ba1e1389dac7d5d24d8"
+    }
+
+
+
+
+
+
 
