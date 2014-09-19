@@ -305,8 +305,8 @@ SUSE_XEN手册
 	(backend 0)
 	)
 ##xen-vm状态说明
-A virtual machine’s state can be displayed in Virtual Machine Manager or by viewing
-the results of the xm list command, which abbreviates the state using a single character .
+	A virtual machine’s state can be displayed in Virtual Machine Manager or by viewing
+	the results of the xm list command, which abbreviates the state using a single character .
 • r - running - The virtual machine is currently running and consuming allocated resources.
 • b - blocked - The virtual machine’s processor is not running and not able to run. It
 is either waiting for I/O or has stopped working.
