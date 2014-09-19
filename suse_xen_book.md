@@ -304,4 +304,15 @@ SUSE_XEN手册
 	(type disk)
 	(backend 0)
 	)
+##xen-vm状态说明
+A virtual machine’s state can be displayed in Virtual Machine Manager or by viewing
+the results of the xm list command, which abbreviates the state using a single character .
+• r - running - The virtual machine is currently running and consuming allocated resources.
+• b - blocked - The virtual machine’s processor is not running and not able to run. It
+is either waiting for I/O or has stopped working.
+• p - paused - The virtual machine is paused. It does not interact with the hypervisor
+but still maintains its allocated resources, such as memory.
+• s - shutdown - The guest operating system is in the process of being shutdown, rebooted, or suspended, and the virtual machine is being stopped.
+• c - crashed - The virtual machine has crashed and is not running.
+• d - dying - The virtual machine is in the process of shutting down or crashing.
 
