@@ -1,6 +1,6 @@
 SUSE_XEN手册
 --
-"作者:黑洞(heidsoft@sina.com)
+>作者:黑洞(heidsoft@sina.com)
  记录时间：2014-09-19
 #Adding Virtual CD Readers
 
