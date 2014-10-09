@@ -103,3 +103,6 @@ AR=[ TYPE = "IP4", IP = "130.56.23.34", SIZE = "1"]
 AR=[ TYPE = "IP4", IP = "130.56.23.24", SIZE = "1"]
 AR=[ TYPE = "IP4", IP = "130.56.23.17", MAC= "50:20:20:20:20:21", SIZE = "1"]
 AR=[ TYPE = "IP4", IP = "130.56.23.12", SIZE = "1"]
+
+#注册file
+oneimage create  -d 2 --name context --type CONTEXT --path /opt/context.sh
