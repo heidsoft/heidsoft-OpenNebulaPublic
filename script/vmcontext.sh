@@ -136,29 +136,51 @@ configure_network()
     sleep 2
 }
 
+#到出另一个脚本中的变量
+function export_rc_vars
+{
+    if [ -f $1 ] ; then
+        ONE_VARS=`cat $1 | egrep -e '^[a-zA-Z\-\_0-9]*=' | sed 's/=.*$//'`
+	echo $ONE_VARS
+        . $1
+
+        for v in $ONE_VARS; do
+            export $v
+        done
+    fi
+}
+
 #判断是否挂载context iso文件，如果挂载则利用该文件的中内容
 get_context_from_iso(){
 	if [ -e "/dev/disk/by-label/CONTEXT" ]; then
 		#如果存在则将iso挂载到mnt目录
         mount -t iso9660 -L CONTEXT  -o ro /mnt
         if [ -f /mnt/context.sh ]; then
-            #export_rc_vars /opt/context.sh
+            export_rc_vars /mnt/context.sh
         fi
 
-        #execute_scripts
+        config_username
 
         umount /mnt
     else
-		#echo ""
+		echo " no do thing "
     fi
 }
 
 #配置用户和密码名称
 config_username(){
 	#添加用户
-	useradd $DCLOUD_USER
-	#设置用户密码
-	echo $DCLOUD_PASSWORD | passwd --stdin $DCLOUD_USER
+	
+	PEOPLE=`cat /etc/passwd|grep $DCLOUD_USER`
+	# -z 字符串的长度为零则为真
+	if [ -z $PEOPLE ];then
+		useradd $DCLOUD_USER
+		#设置用户密码
+		echo $DCLOUD_PASSWORD
+		echo $DCLOUD_PASSWORD | passwd --stdin $DCLOUD_USER
+	fi
+	
+	
 }
 
 
@@ -168,7 +190,7 @@ case "$1" in
 	echo "start config dcloud vm"
 	
 	configure_network
-	config_username
+	get_context_from_iso
 
 	;;
   restart|reload|force-reload)
