@@ -260,3 +260,8 @@ http://www.ibm.com/developerworks/cn/linux/l-ipmi/
 		Per-message Auth    : disabled
 		User Level Auth     : enabled
 		Access Mode         : always available
+#ÃüÁî¸½Í¼
+##Í¼Ò»
+![ipmi-01](./image/ipmi-01.jpg)
+##Í¼¶ş
+![ipmi-02](./image/ipmi-02.jpg)
