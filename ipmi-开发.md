@@ -182,9 +182,10 @@ http://www.ibm.com/developerworks/cn/linux/l-ipmi/
 	Error: No response activating SOL payload
 	heidsoft:~ # ipmitool -I lan -H 192.168.70.233 -U root -P 123456 sol activate
 	Error: This command is only available over the lanplus interface
-	
-	
+		
 ![ipmi-03-conectt-fail](./image/ipmi-03-conectt-fail.jpg)
+
+
 
 	执行完这两条命令后，IPMI发送指令正常
 	
