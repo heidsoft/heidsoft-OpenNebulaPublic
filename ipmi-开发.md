@@ -183,9 +183,9 @@ http://www.ibm.com/developerworks/cn/linux/l-ipmi/
 	heidsoft:~ # ipmitool -I lan -H 192.168.70.233 -U root -P 123456 sol activate
 	Error: This command is only available over the lanplus interface
 	
-	![ipmi-03-conectt-fail](./image/ipmi-03-conectt-fail.jpgg)
+![ipmi-03-conectt-fail](./image/ipmi-03-conectt-fail.jpgg)
 	执行完这两条命令后，IPMI发送指令正常:
-	![ipmi-03-conectt-success](./image/ipmi-03-conectt-success.jpg)
+![ipmi-03-conectt-success](./image/ipmi-03-conectt-success.jpg)
 	
 	
 #命令附图
