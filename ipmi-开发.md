@@ -56,19 +56,44 @@ http://www.ibm.com/developerworks/cn/linux/l-ipmi/
 	l)   user：配置BMC中用户的信息 。
 	m)   channel：配置Management Controller信道。
 
-	ipmitool -I open sensor list 	 #命令能够获取传感器中的各种监测值和该值的监测阈值，包括（CPU温度，电压，风扇转速，电源调制模块温度，电源电压等信息）
-	ipmitool -I open sensor thresh   #配置ID值等于id的监测项的各种限制值。
-	ipmitool -I open chassis status  #查看主板状态，其中包括了主板电源信息，主板工作状态等
-	ipmitool -I open chassis restart_cause  查看上次系统重启的原因
-	ipmitool -I open chassis policy list  查看支持的底盘电源相关策略。
-	ipmitool -I open chassis power on 启动底盘，用此命令能够远程开机
-	ipmitool -I open chassis power off 关闭底盘，用此命令能够远程关机
-	ipmitool -I open chassis power reset实现硬重启，用此命令能够远程重启
-	ipmitool -I open mc reset 	使BMC重新硬启动 
-	ipmitool -I open mc info 	查看BMC硬件信息
-	ipmitool -I open mc setenables =[on|off]，配置bmc相应的允许/禁止选项。
-	ipmitool -I open mc getenables 列出BMC任何允许的选项
-	ipmitool -I open lan print 1 打印现咱channel 1的信息 。这个channel是太重要了，困扰我的问题也出在它身上，下面我们就来详细讲解：
+	#命令能够获取传感器中的各种监测值和该值的监测阈值，包括（CPU温度，电压，风扇转速，电源调制模块温度，电源电压等信息）
+	ipmitool -I open sensor list 
+	
+	#配置ID值等于id的监测项的各种限制值。	
+	ipmitool -I open sensor thresh 
+	
+	#查看主板状态，其中包括了主板电源信息，主板工作状态等
+	ipmitool -I open chassis status  
+	
+	#查看上次系统重启的原因
+	ipmitool -I open chassis restart_cause 
+
+	#查看支持的底盘电源相关策略。
+	ipmitool -I open chassis policy list 
+	
+	#启动底盘，用此命令能够远程开机
+	ipmitool -I open chassis power on 
+	
+	#关闭底盘，用此命令能够远程关机
+	ipmitool -I open chassis power off 
+	
+	#实现硬重启，用此命令能够远程重启
+	ipmitool -I open chassis power reset
+	
+	#使BMC重新硬启动 
+	ipmitool -I open mc reset 	
+	
+	#查看BMC硬件信息
+	ipmitool -I open mc info 
+	
+	#配置bmc相应的允许/禁止选项
+	ipmitool -I open mc setenables =[on|off]
+	
+	#列出BMC任何允许的选项
+	ipmitool -I open mc getenables 
+	
+	#打印现咱channel 1的信息
+	ipmitool -I open lan print 1 
 
 ##5、远程获取服务器监控信息
 	远程获取服务器监控信息时，需要系统硬件支持ipmiV1.5和IPMIV2.0。
@@ -95,50 +120,9 @@ http://www.ibm.com/developerworks/cn/linux/l-ipmi/
 	ipmitool user set name 1 username 对BMC的1号用户设置用户名username
 	ipmitool user set password 1 123456 对BMC的1号用户设置密码123456
 
-	下面讲讲我今天遇到的问题：
-	我在被监控端设置好了IPMI地址、子网掩码、用户名、密码等
-	但是，在监控端却死活连不上，返回下面的信息：
-	Error: Unable to establish LAN session
-	Get Device ID command failed
-	搞了半天，才在MAC地址上发现了破绽：
-	[root@localhost ~]# ipmitool -I open lan print 1
-	Set in Progress         : Set Complete
-	Auth Type Support       : NONE MD2 MD5 OEM 
-	Auth Type Enable        : Callback : NONE MD2 MD5 OEM 
-							: User     : NONE MD2 MD5 OEM 
-							: Operator : NONE MD2 MD5 OEM 
-							: Admin    : NONE MD2 MD5 OEM 
-							: OEM      : 
-	IP Address Source       : DHCP Address
-	IP Address              : 10.53.11.61
-	Subnet Mask             : 255.255.255.0
-	MAC Address             : 00:30:48:c9:61:60
-	SNMP Community String   : AMI
-	IP Header               : TTL=0x00 Flags=0x00 Precedence=0x00 TOS=0x00
-	BMC ARP Control         : ARP Responses Enabled, Gratuitous ARP Disabled
-	Gratituous ARP Intrvl   : 0.0 seconds
-	Default Gateway IP      : 10.53.11.254
-	Default Gateway MAC     : 00:00:00:00:00:00
-	Backup Gateway IP       : 0.0.0.0
-	Backup Gateway MAC      : 00:00:00:00:00:00
-	802.1q VLAN ID          : Disabled
-	802.1q VLAN Priority    : 0
-	RMCP+ Cipher Suites     : 1,2,3,6,7,8,11,12,0
-	Cipher Suite Priv Max   : aaaaXXaaaXXaaXX
-							:     X=Cipher Suite Unused
-							:     c=CALLBACK
-							:     u=USER
-							:     o=OPERATOR
-							:     a=ADMIN
-							:     O=OEM
-
-	所以，得在监控端加入这个MAC地址的arp解析：
-
-	arp -s 10.53.11.28 00:30:48:c9:61:60
-
-
- 
-#一、开源的实现有openipmi和ipmitool
+#一、开源的实现
+##openipmi
+##ipmitool
 
 #二、使用ipmitool 进行测试
 	dntcloud-mgr01:~ # ipmitool user list 1
@@ -160,83 +144,25 @@ http://www.ibm.com/developerworks/cn/linux/l-ipmi/
 	2   root             true    true       true       ADMINISTRATOR
 	dntcloud-mgr01:~ # 
 
-#四、设置密码
-	dntcloud-mgr01:~ # ipmitool -I lan -H 192.168.70.77 -U root -P superuser chassis power status
+#四、测试
+##查看电源状态
+	dntcloud-mgr01:~ # ipmitool -I lan -H 192.168.70.77 -U root -P 123456 chassis power status
 	Error: Unable to establish LAN session
 	Unable to get Chassis Power Status
 	dntcloud-mgr01:~ # 
 
-##192.168.70.166
+##虚拟机(192.168.70.166)测试
 	heidsoft:~ # modprobe ipmi_si
 	FATAL: Error inserting ipmi_si (/lib/modules/3.0.13-0.27-default/kernel/drivers/char/ipmi/ipmi_si.ko): No such device
 	heidsoft:~ # 
 
-
-#五、在192.168.70.77上测试
+#五、在物理机(192.168.70.77)上测试
 ##1、ipmitool设置Ip为动态
 	dntcloud-mgr01:~ # ipmitool lan set 1 ipsrc dhcp
 	dntcloud-mgr01:~ # ipmitool lan print 1
-	Set in Progress         : Set Complete
-	Auth Type Support       : NONE MD2 MD5 PASSWORD 
-	Auth Type Enable        : Callback : MD2 MD5 
-							: User     : MD2 MD5 
-							: Operator : MD2 MD5 
-							: Admin    : MD2 MD5 
-							: OEM      : MD2 MD5 
-	IP Address Source       : DHCP Address
-	IP Address              : 169.254.0.2
-	Subnet Mask             : 255.255.0.0
-	MAC Address             : 00:1a:a0:21:f5:3c
-	SNMP Community String   : public
-	IP Header               : TTL=0x40 Flags=0x40 Precedence=0x00 TOS=0x10
-	Default Gateway IP      : 0.0.0.0
-	Default Gateway MAC     : 00:00:00:00:00:00
-	Backup Gateway IP       : 0.0.0.0
-	Backup Gateway MAC      : 00:00:00:00:00:00
-	802.1q VLAN ID          : Disabled
-	802.1q VLAN Priority    : 0
-	RMCP+ Cipher Suites     : 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14
-	Cipher Suite Priv Max   : aaaaaaaaaaaaaaa
-							:     X=Cipher Suite Unused
-							:     c=CALLBACK
-							:     u=USER
-							:     o=OPERATOR
-							:     a=ADMIN
-							:     O=OEM
-	dntcloud-mgr01:~ # 
-
 ##2、ipmitool设置Ip为静态
 	dntcloud-mgr01:~ # ipmitool lan set 1 ipsrc static
 	dntcloud-mgr01:~ # ipmitool lan print 1
-	Set in Progress         : Set Complete
-	Auth Type Support       : NONE MD2 MD5 PASSWORD 
-	Auth Type Enable        : Callback : MD2 MD5 
-							: User     : MD2 MD5 
-							: Operator : MD2 MD5 
-							: Admin    : MD2 MD5 
-							: OEM      : MD2 MD5 
-	IP Address Source       : Static Address
-	IP Address              : 0.0.0.0
-	Subnet Mask             : 0.0.0.0
-	MAC Address             : 00:1a:a0:21:f5:3c
-	SNMP Community String   : public
-	IP Header               : TTL=0x40 Flags=0x40 Precedence=0x00 TOS=0x10
-	Default Gateway IP      : 0.0.0.0
-	Default Gateway MAC     : 00:00:00:00:00:00
-	Backup Gateway IP       : 0.0.0.0
-	Backup Gateway MAC      : 00:00:00:00:00:00
-	802.1q VLAN ID          : Disabled
-	802.1q VLAN Priority    : 0
-	RMCP+ Cipher Suites     : 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14
-	Cipher Suite Priv Max   : aaaaaaaaaaaaaaa
-							:     X=Cipher Suite Unused
-							:     c=CALLBACK
-							:     u=USER
-							:     o=OPERATOR
-							:     a=ADMIN
-							:     O=OEM
-	dntcloud-mgr01:~ #
-
 ##3、ipmitool 设置用户密码
 	ipmitool user set password 2 123456
 ##4、ipmitool 查看电源状态
@@ -244,22 +170,24 @@ http://www.ibm.com/developerworks/cn/linux/l-ipmi/
 	arp -s 192.168.70.233 00:1a:a0:21:f5:3c
 ##5、ipmitool 确定服务器的 LAN channel
 	dntcloud-mgr01:~ # ipmitool -l open channel info 1
-	Channel 0x1 info:
-		Channel Medium Type   : 802.3 LAN
-		Channel Protocol Type : IPMB-1.0
-		Session Support       : multi-session
-		Active Session Count  : 0
-		Protocol Vendor ID    : 7154
-		Volatile(active) Settings
-		Alerting            : disabled
-		Per-message Auth    : disabled
-		User Level Auth     : enabled
-		Access Mode         : always available
-		Non-Volatile Settings
-		Alerting            : disabled
-		Per-message Auth    : disabled
-		User Level Auth     : enabled
-		Access Mode         : always available
+##6、ipmitool 配置通过和用户
+	配置IPMI使用通道1
+	ipmitool sol set enabled true 1
+	配置IPMI使用用户2
+	ipmitool sol payload enable 1 2
+	
+	在没执行这两条命令时报错如下：
+	heidsoft:~ # ipmitool -I lanplus -H 192.168.70.233 -U root -P 123456 sol activate
+	Error: Unable to establish IPMI v2 / RMCP+ session
+	Error: No response activating SOL payload
+	heidsoft:~ # ipmitool -I lan -H 192.168.70.233 -U root -P 123456 sol activate
+	Error: This command is only available over the lanplus interface
+	
+	![ipmi-03-conectt-fail](./image/ipmi-03-conectt-fail.jpgg)
+	执行完这两条命令后，IPMI发送指令正常:
+	![ipmi-03-conectt-success](./image/ipmi-03-conectt-success.jpg)
+	
+	
 #命令附图
 ##图一
 ![ipmi-01](./image/ipmi-01.jpg)
