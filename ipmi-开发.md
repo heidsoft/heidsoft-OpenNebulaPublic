@@ -184,7 +184,7 @@ http://www.ibm.com/developerworks/cn/linux/l-ipmi/
 	Error: This command is only available over the lanplus interface
 	
 	
-![ipmi-03-conectt-fail](./image/ipmi-03-conectt-fail.jpgg)
+![ipmi-03-conectt-fail](./image/ipmi-03-conectt-fail.jpg)
 
 	执行完这两条命令后，IPMI发送指令正常
 	
